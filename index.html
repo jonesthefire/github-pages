@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Worthhallbooks Cookery App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <h1 class="app-title">
+        <img src="./assets/worthhallbooks-logo.png" onerror="this.onerror=null;this.src='./assets/worthhallbooks-logo.svg';" alt="WorthHall Books logo" class="logo" />
+        <span>Worthhallbooks Cookery App</span>
+      </h1>
+    </header>
+
+    <main class="container">
+      <section class="panel">
+        <form id="recipe-form" class="form" autocomplete="on">
+          <div class="form-row">
+            <label for="meal-input">Meal request</label>
+            <input id="meal-input" name="meal" type="text" placeholder="e.g., roast chicken, vegan curry, spaghetti bolognese" required />
+          </div>
+
+          <div class="form-row inline">
+            <fieldset class="method-fieldset">
+              <legend>Cooking method</legend>
+              <label><input type="radio" name="method" value="gas" checked /> Gas</label>
+              <label><input type="radio" name="method" value="electric" /> Electricity</label>
+              <label><input type="radio" name="method" value="air_fryer" /> Air fryer</label>
+            </fieldset>
+
+            <div class="servings">
+              <label for="servings-input">Servings</label>
+              <input id="servings-input" name="servings" type="number" min="1" step="1" value="4" />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button type="submit" class="btn primary">Generate recipe</button>
+            <button type="button" id="show-all-methods" class="btn">Show all methods</button>
+            <button type="button" id="btn-copy" class="btn">Copy</button>
+            <button type="button" id="btn-print" class="btn">Print</button>
+          </div>
+
+          <details class="examples">
+            <summary>Try an example</summary>
+            <div class="chips" id="example-chips"></div>
+          </details>
+        </form>
+      </section>
+
+      <section id="results" class="panel results hidden" aria-live="polite">
+        <h2 id="recipe-title" class="recipe-title"></h2>
+        <div class="meta">
+          <span id="servings-label"></span>
+          <span id="method-label" class="method-tag"></span>
+        </div>
+
+        <div id="method-tabs" class="method-tabs hidden"></div>
+
+        <div class="columns">
+          <div>
+            <h3>Ingredients</h3>
+            <ul id="ingredients-list" class="ingredients"></ul>
+          </div>
+          <div>
+            <h3>Instructions</h3>
+            <ol id="steps-list" class="steps"></ol>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>© <span id="year"></span> WorthHall Books</small>
+    </footer>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+  </html>
+
