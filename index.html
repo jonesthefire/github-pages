@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worthhallbooks Cookery App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="header-content">
+            <img src="logo.svg" alt="Worthhallbooks Logo" class="logo">
+            <h1>Worthhallbooks Cookery App</h1>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section class="recipe-generator">
+            <h2>AI Recipe Generator</h2>
+            <div class="input-section">
+                <label for="meal-request">What meal would you like to prepare?</label>
+                <input type="text" id="meal-request" placeholder="e.g., spaghetti carbonara, grilled salmon, vegetable stir-fry">
+                <button id="generate-recipe">Generate Recipe</button>
+            </div>
+            
+            <div id="recipe-output" class="recipe-output hidden">
+                <div class="ingredients-section">
+                    <h3>Ingredients</h3>
+                    <div id="ingredients-list" class="ingredients-list"></div>
+                </div>
+                
+                <div class="instructions-section">
+                    <h3>Cooking Instructions</h3>
+                    <div class="cooking-methods">
+                        <button class="method-btn active" data-method="gas">Gas Stove</button>
+                        <button class="method-btn" data-method="electric">Electric Stove</button>
+                        <button class="method-btn" data-method="airfryer">Air Fryer</button>
+                    </div>
+                    <div id="cooking-instructions" class="cooking-instructions"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="ingredient-selector">
+            <h2>Ingredient Selector</h2>
+            <p>Select ingredients from the categories below to build your shopping list:</p>
+            
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="proteins">Proteins</button>
+                <button class="category-btn" data-category="vegetables">Vegetables</button>
+                <button class="category-btn" data-category="grains">Grains</button>
+                <button class="category-btn" data-category="spices">Spices</button>
+                <button class="category-btn" data-category="dairy">Dairy</button>
+            </div>
+            
+            <div class="ingredients-grid">
+                <div class="ingredient-item" data-category="proteins">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="chicken-breast">
+                        <span class="checkmark"></span>
+                        Chicken Breast
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="proteins">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="ground-beef">
+                        <span class="checkmark"></span>
+                        Ground Beef
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="proteins">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="salmon-fillet">
+                        <span class="checkmark"></span>
+                        Salmon Fillet
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="vegetables">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="broccoli">
+                        <span class="checkmark"></span>
+                        Broccoli
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="vegetables">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="carrots">
+                        <span class="checkmark"></span>
+                        Carrots
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="vegetables">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="spinach">
+                        <span class="checkmark"></span>
+                        Spinach
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="grains">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="rice">
+                        <span class="checkmark"></span>
+                        Rice
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="grains">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="pasta">
+                        <span class="checkmark"></span>
+                        Pasta
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="grains">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="quinoa">
+                        <span class="checkmark"></span>
+                        Quinoa
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="spices">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="salt">
+                        <span class="checkmark"></span>
+                        Salt
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="spices">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="pepper">
+                        <span class="checkmark"></span>
+                        Pepper
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="spices">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="garlic-powder">
+                        <span class="checkmark"></span>
+                        Garlic Powder
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="dairy">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="milk">
+                        <span class="checkmark"></span>
+                        Milk
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="dairy">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="cheese">
+                        <span class="checkmark"></span>
+                        Cheese
+                    </label>
+                </div>
+                <div class="ingredient-item" data-category="dairy">
+                    <label class="checkbox-container">
+                        <input type="checkbox" value="butter">
+                        <span class="checkmark"></span>
+                        Butter
+                    </label>
+                </div>
+            </div>
+            
+            <div class="selected-ingredients">
+                <h3>Selected Ingredients</h3>
+                <div id="selected-list" class="selected-list"></div>
+                <button id="clear-selection">Clear Selection</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
