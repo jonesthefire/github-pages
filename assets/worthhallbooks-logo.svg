@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="288" height="64" viewBox="0 0 960 214" role="img" aria-label="WorthHall Books logo placeholder">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#0b5a8c"/>
+      <stop offset="1" stop-color="#0b5a8c"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#7ac143"/>
+      <stop offset="1" stop-color="#7ac143"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="none"/>
+  <g transform="translate(10,18)">
+    <g fill="#0b5a8c">
+      <path d="M64 120c-18-32 6-64 6-64s12 20 8 36c14-18 30-24 30-24s-8 20-20 30c22-6 38 4 38 4s-22 14-46 10c-4 6-8 8-16 8z"/>
+      <path d="M24 136c36-14 68-10 68-10s-56-4-84 16l4-18c20-4 40-4 40-4s-20-2-34 0z"/>
+    </g>
+    <text x="150" y="60" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="700" fill="url(#g1)">Worth</text>
+    <text x="390" y="60" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="700" fill="url(#g2)">Hall</text>
+    <text x="520" y="60" font-family="Inter, Arial, sans-serif" font-size="64" font-weight="700" fill="url(#g1)">Books</text>
+  </g>
+</svg>
+
