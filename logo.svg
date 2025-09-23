@@ -1,0 +1,42 @@
+<svg width="240" height="80" viewBox="0 0 240 80" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="bookGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#4a90e2;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#4a90e2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background circle for book icon -->
+  <circle cx="40" cy="40" r="35" fill="url(#bookGradient)" opacity="0.1"/>
+  
+  <!-- Book icon -->
+  <rect x="20" y="25" width="30" height="30" rx="2" fill="url(#bookGradient)"/>
+  <line x1="25" y1="30" x2="45" y2="30" stroke="white" stroke-width="2"/>
+  <line x1="25" y1="35" x2="45" y2="35" stroke="white" stroke-width="1.5"/>
+  <line x1="25" y1="40" x2="45" y2="40" stroke="white" stroke-width="1.5"/>
+  <line x1="25" y1="45" x2="40" y2="45" stroke="white" stroke-width="1.5"/>
+  
+  <!-- Book spine -->
+  <rect x="48" y="27" width="4" height="26" fill="#5a9fd4"/>
+  
+  <!-- Company name "WorthHall" -->
+  <text x="70" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="url(#logoGradient)">WorthHall</text>
+  
+  <!-- "BOOKS" text -->
+  <text x="70" y="50" font-family="Arial, sans-serif" font-size="14" font-weight="normal" fill="url(#logoGradient)">BOOKS</text>
+  
+  <!-- Decorative elements -->
+  <path d="M 60 35 Q 65 30 70 35" stroke="url(#logoGradient)" stroke-width="2" fill="none"/>
+  <circle cx="185" cy="40" r="3" fill="#667eea"/>
+  <circle cx="195" cy="40" r="2" fill="#764ba2"/>
+  <circle cx="205" cy="40" r="3" fill="#667eea"/>
+  <circle cx="215" cy="40" r="2" fill="#764ba2"/>
+  
+  <!-- Tagline or additional text -->
+  <text x="70" y="65" font-family="Arial, sans-serif" font-size="8" fill="#999">Cookery Collection</text>
+</svg>
