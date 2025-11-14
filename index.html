@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>Cosmic Nexus - Epic Space Shooter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #000;
+            overflow: hidden;
+            touch-action: none;
+            position: fixed;
+            width: 100%;
+            height: 100%;
+        }
+
+        #gameContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: radial-gradient(ellipse at center, #1a0033 0%, #000000 100%);
+        }
+
+        #gameCanvas {
+            display: block;
+            background: transparent;
+            max-width: 100%;
+            max-height: 100%;
+            touch-action: none;
+        }
+
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            color: white;
+            font-size: 16px;
+        }
+
+        #stats {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            font-family: 'Courier New', monospace;
+        }
+
+        .stat-row {
+            margin: 5px 0;
+            display: flex;
+            align-items: center;
+        }
+
+        .stat-label {
+            color: #00ffff;
+            margin-right: 10px;
+            min-width: 80px;
+        }
+
+        .stat-value {
+            color: #fff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        #healthBar {
+            width: 150px;
+            height: 20px;
+            background: rgba(255, 0, 0, 0.3);
+            border: 2px solid #ff0000;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #healthFill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ff6600);
+            transition: width 0.3s;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+        }
+
+        #comboDisplay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            text-align: right;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 0, 0.8);
+            color: #ffff00;
+            animation: pulse 0.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.05); }
+        }
+
+        #gameOverScreen, #menuScreen, #upgradeScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.9);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: all;
+            z-index: 100;
+        }
+
+        #menuScreen {
+            display: flex;
+        }
+
+        .screen-title {
+            font-size: 72px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+            animation: titleGlow 2s infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            from { filter: brightness(1); }
+            to { filter: brightness(1.5); }
+        }
+
+        .btn {
+            padding: 15px 40px;
+            font-size: 24px;
+            margin: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            font-weight: bold;
+            pointer-events: all;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .upgrade-btn {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            padding: 10px 25px;
+            font-size: 18px;
+        }
+
+        .upgrade-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        #upgradeList {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 20px;
+        }
+
+        .upgrade-card {
+            background: rgba(50, 50, 100, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            text-align: center;
+        }
+
+        .upgrade-title {
+            font-size: 20px;
+            color: #00ffff;
+            margin-bottom: 10px;
+        }
+
+        .upgrade-desc {
+            font-size: 14px;
+            color: #ccc;
+            margin-bottom: 15px;
+        }
+
+        .upgrade-cost {
+            color: #ffff00;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #instructions {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+        }
+
+        #waveNotification {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 1);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        @media (max-width: 768px) {
+            .screen-title {
+                font-size: 48px;
+            }
+
+            .btn {
+                font-size: 20px;
+                padding: 12px 30px;
+            }
+
+            #stats {
+                font-size: 12px;
+                padding: 10px;
+            }
+
+            .stat-value {
+                font-size: 14px;
+            }
+
+            #upgradeList {
+                grid-template-columns: 1fr;
+                max-width: 90%;
+            }
+        }
+
+        .particle {
+            position: absolute;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="gameContainer">
+        <canvas id="gameCanvas"></canvas>
+
+        <div id="ui">
+            <div id="stats">
+                <div class="stat-row">
+                    <span class="stat-label">SCORE:</span>
+                    <span class="stat-value" id="score">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">WAVE:</span>
+                    <span class="stat-value" id="wave">1</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">CRYSTALS:</span>
+                    <span class="stat-value" id="currency">0</span>
+                </div>
+                <div class="stat-row">
+                    <span class="stat-label">HEALTH:</span>
+                    <div id="healthBar">
+                        <div id="healthFill" style="width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="comboDisplay"></div>
+
+            <div id="waveNotification"></div>
+        </div>
+
+        <div id="menuScreen">
+            <h1 class="screen-title">COSMIC NEXUS</h1>
+            <p style="color: #ccc; margin-bottom: 30px; font-size: 18px;">Survive the cosmic onslaught!</p>
+            <button class="btn" id="startBtn">START GAME</button>
+            <button class="btn" id="howToPlayBtn">HOW TO PLAY</button>
+            <div id="instructions" style="position: relative; max-width: 500px; margin-top: 30px;">
+                <p><strong>Desktop:</strong> WASD or Arrow Keys to move, Mouse to aim</p>
+                <p><strong>Mobile:</strong> Touch and drag to move your ship</p>
+                <p style="margin-top: 15px;">Collect power-ups, survive waves, upgrade your ship!</p>
+            </div>
+        </div>
+
+        <div id="gameOverScreen">
+            <h1 class="screen-title">GAME OVER</h1>
+            <div style="background: rgba(0,0,0,0.7); padding: 30px; border-radius: 15px; margin: 20px;">
+                <p style="font-size: 24px; margin: 10px 0;">Final Score: <span id="finalScore" style="color: #ffff00;">0</span></p>
+                <p style="font-size: 24px; margin: 10px 0;">Waves Survived: <span id="finalWave" style="color: #00ffff;">0</span></p>
+                <p style="font-size: 20px; margin: 10px 0; color: #ff00ff;">High Score: <span id="highScore">0</span></p>
+            </div>
+            <button class="btn" id="restartBtn">PLAY AGAIN</button>
+            <button class="btn" id="menuBtn">MAIN MENU</button>
+        </div>
+
+        <div id="upgradeScreen">
+            <h1 class="screen-title">UPGRADE SHOP</h1>
+            <p style="font-size: 24px; margin-bottom: 20px; color: #ffff00;">Crystals: <span id="upgradeCurrency">0</span></p>
+            <div id="upgradeList"></div>
+            <button class="btn" id="continueBtn" style="margin-top: 20px;">CONTINUE</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
